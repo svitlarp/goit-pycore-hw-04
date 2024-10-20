@@ -1,3 +1,10 @@
+# Helper function takes a bytes or str instance and always return a str
+def to_str(bytes_or_str):
+    if isinstance(bytes_or_str, bytes):
+        value = bytes_or_str.decode('utf-8')
+    else:
+        value = bytes_or_str
+    return value        
 
 
 def get_cats_info(file_path):
@@ -15,7 +22,7 @@ def get_cats_info(file_path):
     cats_list = []
     cats_keys = ['id' , 'name' , 'age']
     try:
-        with open(file_path, "r") as file_obj:
+        with open(file_path, "r", encoding='utf-8') as file_obj:
             # TODO Check if file is empty
 
             for line in file_obj.readlines():
