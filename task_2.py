@@ -20,6 +20,7 @@ def get_cats_info(file_path):
     (list of dictionaries) The list of dict where each dict represents one cat.
     """
     cats_list = []
+    print(cats_list)
     cats_keys = ['id' , 'name' , 'age']
     try:
         with open(file_path, "r", encoding='utf-8') as file_obj:
@@ -29,6 +30,7 @@ def get_cats_info(file_path):
 
                 # With handly split() method extract all values separatly by specifying a comma as a separator
                 line_data = line.strip('\n').split(',')   
+                print(line_data)
 
                 # Line by line append a new dictionary to the list        
                 cats_list.append({k:v for (k, v) in zip(cats_keys, line_data)})
