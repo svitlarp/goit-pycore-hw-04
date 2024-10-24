@@ -2,8 +2,7 @@
 # змінювати записаний номер телефону, виводити в консоль всі записи, які зберіг. 
 from exception import NameDoestNotExists, NameAlreadyExists
 import parse_input
-
-
+ 
 def main():
     '''
     The main function which controls the main command processing loop.
