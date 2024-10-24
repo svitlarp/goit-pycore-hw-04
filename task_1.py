@@ -29,6 +29,7 @@ def total_salary(path: str) -> (int, int):
     try:
         #Check if the file is empty 
         if stat(path).st_size == 0:
+            # raise Exception("File is empty")
             return "File is empty"
 
         else:
@@ -41,22 +42,26 @@ def total_salary(path: str) -> (int, int):
                     to_str(line)
 
                     # Var to check if there are any numbers in the line to be able to perform mathematical operations on them.
-                    contein_digits = bool(re.search(r"\d+", line))
-                    
-                    # Using splt() method extract salary data to perform math operations
-                    file_data = line.split(',')
+                    contain_digits = bool(re.search(r"\d+", line))
+                                     
+                    if contain_digits is True:
 
-                    if contein_digits is True:
+                        # Using split() method extract salary data to perform math operations
+                        file_data = line.split(',')
                         salary = int(file_data[-1].strip('\n '))
-                        list_salary.append(salary)                 
+                        list_salary.append(salary)        
+
                     else:
                         return f'The salary should be written in numbers.'  
+                        # raise Exception("The salary should be written in numbers.")
 
                 if len(list_salary) > 1:
-                    total_salary = functools.reduce(lambda x, y: x + y, list_salary)
-                    average_salary = total_salary//len(list_salary)
+                    total_salary = functools.reduce(lambda x, y: x + y, list_salary) # sum(list_salary))
+                    average_salary = total_salary // len(list_salary)
                 else:
-                    return f'The salary is {list_salary[0]}. File contains only one raw'    
+                    return f'The salary is {list_salary[0]}. File contains only one row' 
+                    # raise Exception(f'The salary is {list_salary[0]}. File contains only one row')
+
                 return (total_salary, average_salary)
 
     except FileNotFoundError:
@@ -86,12 +91,10 @@ assert total_salary(file_two) == "File does not exist", "Test case 2 failed"
 assert total_salary(file_three) == 'The salary should be written in numbers.', "Test case 3 failed"
 
 # TestCase4 file with only one line of text
-assert total_salary(file_four) == 'The salary is 7000. File contains only one raw', "Test case 4 failed"
+assert total_salary(file_four) == 'The salary is 7000. File contains only one row', "Test case 4 failed"
 
 # TestCase5 file is empty
 assert total_salary(file_five) == "File is empty",  "Test case 5 failed"
 
 # TestCase6 file with binary data
 assert total_salary(file_six) == (5000, 2500),  "Test case 6 failed"
-
-            

@@ -10,36 +10,32 @@ def displaying_dir_content(path):
 #     and visualizes the structure of that directory, 
 #     displaying the names of all subdirectories and files.
 #     '''
-    handle_path(Path(path)) 
-    # # print(f'{given_path}/')
-    # # Check if path is a string
-    # if isinstance(path, str):
-    #     path_obj = Path(path)
-    #     # Check if given path exists and if is a dir
-    #     if path_obj.exists():
-    #         print(f'{path_obj}/ ')
-    #         # if is a correct path display all directory content
-    #         handle_path(path_obj)   
-    #     else:
-    #         return 'no file'
-    # else:
-    #     return 'not correct type'    
+    # Check if path is a string
+    if isinstance(path, str):
+        path_obj = Path(path)
+        # Check if given path exists and if is a dir
+        if path_obj.exists():
+            print(f'{path_obj}/ ')
+            # if is a correct path display all directory content
+            handle_path(path_obj)   
+        else:
+            return 'no file'
+    else:
+        return 'not correct type'    
 
 
 
 def handle_path(path_obj: Path):    
 
-    # Iterate through all files in the folder (and subfolders)
+    # Prints out all files in the folder (and subfolders) within given directory
 
     for file in path_obj.iterdir():
         if file.is_dir():
             relative_path = file.relative_to(path_obj)
             print(f'\n\t {relative_path}/')
-            # print(Back.LIGHTGREEN_EX + f'\n\t {relative_path}/')
-            displaying_dir_content(file)
+            handle_path(file)
         else:
             relative_path = file.relative_to(path_obj)
-            # print(f'- {relative_path}') 
             print(Fore.MAGENTA + f'- {relative_path}')
             
 
