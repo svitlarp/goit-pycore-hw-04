@@ -1,7 +1,7 @@
 import sys
-from pathlib import Path
 import colorama
 from colorama import Fore, Back, Style
+from pathlib import Path
 
 
 def displaying_dir_content(path):
@@ -10,18 +10,25 @@ def displaying_dir_content(path):
 #     and visualizes the structure of that directory, 
 #     displaying the names of all subdirectories and files.
 #     '''
+    
     # Check if path is a string
     if isinstance(path, str):
         path_obj = Path(path)
-        # Check if given path exists and if is a dir
-        if path_obj.exists():
-            print(f'{path_obj}/ ')
-            # if is a correct path display all directory content
-            handle_path(path_obj)   
+
+        # Check if given path is a file
+        if path_obj.is_file:
+            
+            # Check if given path exists and if is a dir
+            if path_obj.exists():
+                print(f'{path_obj}/ ')
+                # if is a correct path display all directory content
+                handle_path(path_obj)  
+            else:
+                raise Exception('The path is a file, not a directory') 
         else:
-            return 'no file'
+            raise Exception('The path does not exists')
     else:
-        return 'not correct type'    
+        raise TypeError('The type of given path is not correct')   
 
 
 
@@ -37,21 +44,34 @@ def handle_path(path_obj: Path):
         else:
             relative_path = file.relative_to(path_obj)
             print(Fore.MAGENTA + f'- {relative_path}')
-            
 
 
+def main():
+    print('CLI ARGUMENTS:', sys.argv[1])
+    directory_path = sys.argv[1]
+
+    displaying_dir_content(directory_path)
 
 
-# print(file_name)
-# given_path = ('bdfb') 
-# given_path = ('..') 
-# given_path = (789) 
+if __name__ == "__main__":
+    main()        
+
+
 given_path = '../modul5_files'
-# given_path = 'modul5_files'
-# given_path = 'intro.py' # if path is a file
+given_path_1 = (789)       # not correct type     
+given_path_2 = ('/some_dir/another_dir')   # path does not exists
+given_path_3 = 'intro.py'     # path is a file
 
 
-print(displaying_dir_content(given_path))            
+# TestCase1 Correct data (should display the names of all files in a given directory and subdirectories)
+# assert displaying_dir_content(given_path_1) == "The type of given path is not correct", "Test case 1 failed"
 
+# TestCase1 type of path is not string (should raise an Exception: TypeError )
+assert displaying_dir_content(given_path_1) == "The type of given path is not correct", "Test case 1 failed"
 
+# TestCase2 path does not exist (should raise an Exception: FileNotFoundError)
+assert displaying_dir_content(given_path_2) == "The path does not exists", "Test case 2 failed"
 
+# TestCase3 the path is a file, not directory (should raise an Exception: FileNotFoundError)
+assert displaying_dir_content(given_path_3) == "", "Test case 3 failed"
+ 
