@@ -1,0 +1,4 @@
+MENU = '''
+        ADD name phone
+        
+        '''

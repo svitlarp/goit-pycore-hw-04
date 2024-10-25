@@ -1,7 +1,6 @@
-# На першому етапі наш бот-асистент повинен вміти зберігати ім'я та номер телефону, знаходити номер телефону за ім'ям, 
-# змінювати записаний номер телефону, виводити в консоль всі записи, які зберіг. 
-import parse_input
+from task_4_bot.input_parser import parse_input
  
+
 def main():
     '''
     The main function which controls the main command processing loop.
@@ -13,27 +12,29 @@ def main():
     print('"How can I help you?"')
     
     # Ask user which action he wants to do with a phone_book
-    input_action = input('Enter what you wonna do with your phone_book')
+    user_input = input('Enter what you wonna do with your phone_book')
 
-    # Call parse_input() function to extract desired action from input string 
-    response_action = parse_input(input_action['action'])
+    # Call parse_input() function to extract desired action from input string using python unpacking
+    response_action, *given_args = parse_input(user_input)
 
     while True:
-    # while input != "exit" and input != "close" :
 
         # Building a simple match-case statement
         match response_action:
             case 'add':
+                name, phone = given_args
                 add_contact(name, phone)
             case 'change':
+                name, phone = given_args
                 change_contact(name, phone)
             case 'phone':
+                name = given_args
                 show_phone(name)
             case 'all':
                 show_all()
             case 'exit' | 'close':
                 print('Good bye!')
-                breake            
+                break            
     
 
 def add_contact(name: str, phone: str) -> str:
@@ -63,12 +64,5 @@ def show_all():
     return phone_book
 
 
-
-
-
-
-
-
-
-
-
+if __name__ == "main":
+    main()
