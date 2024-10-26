@@ -63,6 +63,7 @@ given_path_3 = 'intro.py'     # path is a file
 # TestCase1 type of path is not string (should raise an Exception: TypeError )
 assert display_directory_content(given_path_1) == "The type of given path is not correct", "Test case 1 failed"
 
+
 # TestCase2 path does not exist (should raise an Exception: FileNotFoundError)
 assert display_directory_content(given_path_2) == "The path does not exists", "Test case 2 failed"
 
