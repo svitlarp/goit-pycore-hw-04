@@ -1,4 +1,4 @@
-from task_4_bot.input_parser import parse_input
+from input_parser import parse_input
  
 
 def main():

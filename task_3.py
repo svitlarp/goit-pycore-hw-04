@@ -55,7 +55,7 @@ given_path = '../modul5_files'
 given_path_1 = (789)       # not correct type     
 given_path_2 = ('/some_dir/another_dir')   # path does not exists
 given_path_3 = 'intro.py'     # path is a file
-
+# print(display_directory_content(given_path))
 
 # TestCase1 Correct data (should display the names of all files in a given directory and subdirectories)
 # assert displaying_dir_content(given_path_1) == "The type of given path is not correct", "Test case 1 failed"
